@@ -87,7 +87,7 @@ export class Controller{
             const catched = await modelStore.procedure(procedure, data);
             res.status(200).json(catched);
         }catch(error){
-            res.status(400).json(error);
+            res.status(400).json([]);
         }
     }
     async assignStore(req: Request, res: Response){
