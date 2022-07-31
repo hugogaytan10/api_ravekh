@@ -25,7 +25,7 @@ export class Controller {
     //INICIO DE SESION DE USUARIO
     async signin(req: Request, res: Response) {
         try {
-            
+            console.log(req.body);
             //usuario a buscar
             const user = {
                 correo: req.body.correo,

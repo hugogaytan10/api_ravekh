@@ -38,6 +38,7 @@ class Controller {
     signin(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
+                console.log(req.body);
                 //usuario a buscar
                 const user = {
                     correo: req.body.correo,
