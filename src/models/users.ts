@@ -58,6 +58,7 @@ class User extends Database {
             connection.query(`SELECT * FROM usuarios where correo = ? and contrasenia = ?`,
             [user.correo, hash], (error, results, fields)=>{
                 if(error) reject(error);
+                
                 if (results[0] !== undefined) {
                     const accessToken = this.generateAccessToken(results[0].id);
                     const userFind = {
