@@ -46,7 +46,7 @@ class User extends database_1.default {
                 if (error){
                     reject(error);
                 }
-                if (results[0] !== undefined) {
+                if (results !== undefined) {
                     const accessToken = this.generateAccessToken(results[0].id);
                     const userFind = {
                         usuario: results[0],
