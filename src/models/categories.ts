@@ -16,7 +16,7 @@ class Category extends Database {
             from categorias as c join tiendas as t
             on t.id = c.tienda_id join empresas as e
             on t.empresa_id = e.id
-            where e.id = ${id};`, (error, results, fields) => {
+            where e.id = ${id};`, (error: any, results: any, fields: any) => {
                 if(error)reject(error);
                 resolve(results);
             });

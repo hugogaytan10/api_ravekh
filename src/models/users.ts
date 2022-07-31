@@ -33,7 +33,7 @@ class User extends Database {
             join empresas as e
             on e.id = ti.empresa_id
             where u.id = ${id}`,
-                (error, results, fields) => {
+                (error: any, results: any, fields: any) => {
                     if (error) reject(error);
                     resolve(results);
                 });
@@ -56,9 +56,9 @@ class User extends Database {
         const hash: string = this.encrypPassword(user.contrasenia);
         return new Promise<IUser>((resolve, reject)=>{
             connection.query(`SELECT * FROM usuarios where correo = ? and contrasenia = ?`,
-            [user.correo, hash], (error, results, fields)=>{
+            [user.correo, hash], (error: any, results: any, fields: any)=>{
                 if(error) reject(error);
-                if (results !== undefined) {
+                if (results !== undefined && results.lenght !== 0) {
                     const accessToken = this.generateAccessToken(results[0].id);
                     const userFind = {
                         usuario: results[0],

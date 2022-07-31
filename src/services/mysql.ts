@@ -1,6 +1,6 @@
-import mysql from 'mysql';
+const mysql = require('mysql');
 // Usar esta configuración para manejar un servidor local de MySQL
-const connection = mysql.createConnection({
+const connection = mysql.createPool({
     host : 'my-instance.ckqzly8drmmp.us-west-2.rds.amazonaws.com',
     //host : 'localhost',
     user     : 'ravekh',

@@ -12,7 +12,7 @@ class Prendas extends Database {
             dp.color, dp.cantidad_stock, dp.talla, dp.precio, dp.foto, dp.descuento, 
             c.nombre as categoria from detalles_de_prenda as dp join prendas as p on p.id = dp.prenda_id 
             join categorias as c on c.id = p.categoria_id 
-            where p.estado = '1';`, (error, results, fields) => {
+            where p.estado = '1';`, (error: any, results: any, fields: any) => {
                 if (error) reject(error);
                 resolve(results);
             });
@@ -24,7 +24,7 @@ class Prendas extends Database {
                 dp.color, dp.cantidad_stock, dp.talla, dp.precio, dp.foto,
                 dp.descuento, c.nombre as categoria from detalles_de_prenda as dp join prendas as p
                 on p.id = dp.id join categorias as c on c.id = p.categoria_id where p.estado = '0';`,
-                (error, results, fields) => {
+                (error: any, results: any, fields: any) => {
                     if (error) reject(error);
                     resolve(results);
                 });
@@ -36,7 +36,7 @@ class Prendas extends Database {
             p.estado, dp.codigo_barras,  
             dp.color, dp.cantidad_stock, dp.talla, dp.precio, dp.foto,
             dp.descuento from detalles_de_prenda as dp join prendas as p
-            on p.id = dp.prenda_id  where p.id = ${id}`, (error, results, fields)=>{
+            on p.id = dp.prenda_id  where p.id = ${id}`, (error: any, results: any, fields: any)=>{
                 if(error)reject(error);
                 resolve(results[0]);
             });

@@ -7,10 +7,10 @@ class Sales extends Database {
     }
     async insertSale(sale: any) {
         try {
-            connection.beginTransaction(function (err) {
+            connection.beginTransaction(function (err: any) {
                 if (err) { throw err; }
                 connection.query(` INSERT INTO ventas (total, empresa_id, tienda_id) VALUES
-                (?, ?, ?)`, [sale.total, sale.empresa_id, sale.tienda_id], function (error, result, fields) {
+                (?, ?, ?)`, [sale.total, sale.empresa_id, sale.tienda_id], function (error: any, result: any, fields: any) {
                     if (error) {
                         return connection.rollback(function () {
                             throw error;
@@ -21,20 +21,20 @@ class Sales extends Database {
                         connection.query(`INSERT INTO detalles_de_venta (precio_unitario, cantidad_prenda, prenda_id, venta_id, usuario_id) 
                     VALUES(?, ?, ?, ?, ?)`,
                             [element.prenda.precio, element.cantidad,
-                            element.prenda.id, ventaId, sale.usuario_id], function (error, results, fields) {
+                            element.prenda.id, ventaId, sale.usuario_id], function (error: any, results: any, fields: any) {
                                 if (error) {
                                     return connection.rollback(function () {
                                         throw error;
                                     });
                                 }
                                 connection.query(`update detalles_de_prenda set cantidad_stock = cantidad_stock - ${element.cantidad} where prenda_id = ${element.prenda.id}`,
-                                    function (error, results, fields) {
+                                    function (error: any, results: any, fields: any) {
                                         if (error) {
                                             return connection.rollback(function () {
                                                 throw error;
                                             });
                                         }
-                                        connection.commit(function (err) {
+                                        connection.commit(function (err: any) {
                                             if (err) {
                                                 return connection.rollback(function () {
                                                     throw err;
