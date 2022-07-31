@@ -45,6 +45,7 @@ class User extends database_1.default {
             mysql_1.default.query(`SELECT * FROM usuarios where correo = ? and contrasenia = ?`, [user.correo, hash], (error, results, fields) => {
                 if (error)
                     reject(error);
+                console.log(results);
                 if (results !== undefined && results.lenght !== 0) {
                     const accessToken = this.generateAccessToken(results[0].id);
                     const userFind = {
