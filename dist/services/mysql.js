@@ -3,13 +3,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mysql = require('mysql');
 // Usar esta configuración para manejar un servidor local de MySQL
 const connection = mysql.createPool({
-    //host : 'my-instance.ckqzly8drmmp.us-west-2.rds.amazonaws.com',
-    host: 'localhost',
-    //user     : 'ravekh',
+    host: 'containers-us-west-65.railway.app',
+    port: "6299",
+    //host : 'localhost',
     user: 'root',
-    //password : '34#vdDv.3',
-    password: 'root',
-    database: 'rebk_db'
+    //user     : 'root',
+    password: 'aZAgB9aqwIbVM3vrbO3W',
+    //password : 'root',
+    database: 'railway'
 });
 exports.default = connection;
 //# sourceMappingURL=mysql.js.map

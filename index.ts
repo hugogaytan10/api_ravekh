@@ -9,9 +9,7 @@ const init = async () => {
     app.use(express.urlencoded({ extended: false }))
     routes(app)
 
-    //app.use(express.static(path.join(__dirname, '../public')))
-
-    app.listen(port, () => console.log('🚀 Express is runing...'))
+    app.listen(port, () => console.log('🚀 Express is runing...', ' PUERTO: ', port))
 }
 
 init()
