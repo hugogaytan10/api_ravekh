@@ -1,14 +1,13 @@
 const mysql = require('mysql');
 // Usar esta configuración para manejar un servidor local de MySQL
 const connection = mysql.createPool({
-    host : 'containers-us-west-65.railway.app',
-    port: "6299",
+    host : 'ravekh.cu7tugak0azk.us-east-2.rds.amazonaws.com',
     //host : 'localhost',
-    user     : 'root',
+    user     : 'admin',
     //user     : 'root',
-    password : 'aZAgB9aqwIbVM3vrbO3W',
+    password : 'ravekh123',
     //password : 'root',
-    database : 'railway'
+    database : 'rebk_db'
 })
 
 export default connection;
