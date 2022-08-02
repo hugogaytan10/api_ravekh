@@ -9,7 +9,7 @@ const init = async () => {
     app.use(express.urlencoded({ extended: false }))
     routes(app)
 
-    app.listen(port, () => console.log('🚀 Express is runing...', ' PUERTO: ', port))
+    app.listen(port, () => console.log('🚀 Express is runing...'))
 }
 
 init()
