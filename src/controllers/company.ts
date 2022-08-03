@@ -31,6 +31,7 @@ export class Controller {
     }
     async insertCompany(req: Request, res: Response) {
         try {
+            console.log(req.body);
             const procedure = {
                 name: "insert_empresa",
                 items: "?,?,?,?,?,?,?,?,?,?,?,?"
