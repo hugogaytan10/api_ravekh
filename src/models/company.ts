@@ -34,14 +34,12 @@ export class Company extends Database {
                     values(?, ?, sha1(?), ?, ?, ?, ?, 'OWN','1');`,
                         [empresa.nombre_propietario, empresa.apellido, empresa.contrasenia, empresa.direccion_duenio, empresa.correo, empresa.telefono_duenio, empresa.pregunta_seguridad],
                         function (error: any, results: any, fields: any) {
-                            
                             if (error) {
                                 return connection.rollback(function () {
                                     reject(error);
                                 });
                             }
                             //realizamos el commit
-                            
                             resolve(empresa_id);
                         })
                 })
