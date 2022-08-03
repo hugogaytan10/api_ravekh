@@ -50,28 +50,26 @@ class Controller {
     insertCompany(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const procedure = {
-                    name: "insert_empresa",
-                    items: "?,?,?,?,?,?,?,?,?,?,?,?"
+                const datos = {
+                    nombre: req.body.nombre,
+                    nombre_propietario: req.body.nombre_propietario,
+                    RFC: req.body.RFC,
+                    foto: req.body.foto,
+                    contrasenia: req.body.contrasenia,
+                    direccion_duenio: req.body.direccion_duenio,
+                    direccion: req.body.direccion,
+                    telefono: req.body.telefono,
+                    apellido: req.body.apellido,
+                    telefono_duenio: req.body.telefono_duenio,
+                    pregunta_seguridad: req.body.pregunta_seguridad,
+                    correo: req.body.correo
                 };
-                const datos = [
-                    req.body.nombre,
-                    req.body.nombre_propietario,
-                    req.body.RFC,
-                    req.body.foto,
-                    req.body.contrasenia,
-                    req.body.direccion_duenio,
-                    req.body.direccion,
-                    req.body.telefono,
-                    req.body.apellido,
-                    req.body.telefono_duenio,
-                    req.body.pregunta_seguridad,
-                    req.body.correo
-                ];
-                const catched = yield modelCompany.procedure(procedure, datos);
+                const catched = yield modelCompany.insertCompany(datos);
                 if (!catched)
                     res.status(400);
-                res.status(200).json(catched);
+                res.status(200).json({
+                    id: catched
+                });
             }
             catch (error) {
                 res.status(400);
