@@ -22,8 +22,7 @@ export class Company extends Database {
                 values(?,? , ?, ?, ?, ?, ?,'1','1');`,
                 [empresa.nombre, empresa.nombre_propietario, empresa.RFC, empresa.foto, empresa.direccion, empresa.telefono, empresa.pregunta_seguridad],
                 function (error: any, results: any, fields: any) {
-                    if (error) {
-                        
+                    if (error) {                  
                             reject(error);
                         
                     }
@@ -37,10 +36,9 @@ export class Company extends Database {
                             if (error) {
                                  
                                     reject(error);
-                               
                             }
                             //realizamos el commit
-                            resolve(40);
+                            resolve(empresa_id);
                         })
                 })
         })
