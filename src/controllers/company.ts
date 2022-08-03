@@ -47,8 +47,11 @@ export class Controller {
             };
             const catched = await modelCompany.insertCompany(datos);
             if (!catched) res.status(400);
+            const empresa = {
+            empresa_id: JSON.stringify(catched) 
+            }
             res.status(200).json({
-                empresa_id: JSON.stringify(catched) 
+                empresa
             });
         } catch (error) {
             res.status(400);
