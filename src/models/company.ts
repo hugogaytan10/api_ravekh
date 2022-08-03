@@ -40,7 +40,7 @@ export class Company extends Database {
                                
                             }
                             //realizamos el commit
-                            resolve(empresa_id);
+                            resolve(40);
                         })
                 })
         })
