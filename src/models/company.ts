@@ -23,9 +23,9 @@ export class Company extends Database {
                 [empresa.nombre, empresa.nombre_propietario, empresa.RFC, empresa.foto, empresa.direccion, empresa.telefono, empresa.pregunta_seguridad],
                 function (error: any, results: any, fields: any) {
                     if (error) {
-                        return connection.rollback(function () {
+                        
                             reject(error);
-                        });
+                        
                     }
                     //recuperamos el id de esa empresa
                     let empresa_id = results.insertId;
@@ -35,9 +35,9 @@ export class Company extends Database {
                         [empresa.nombre_propietario, empresa.apellido, empresa.contrasenia, empresa.direccion_duenio, empresa.correo, empresa.telefono_duenio, empresa.pregunta_seguridad],
                         function (error: any, results: any, fields: any) {
                             if (error) {
-                                return connection.rollback(function () {
+                                 
                                     reject(error);
-                                });
+                               
                             }
                             //realizamos el commit
                             resolve(empresa_id);
