@@ -21,10 +21,9 @@ export class Company extends Database {
             connection.query(`insert into empresas(nombre,nombre_propietario, RFC, foto, direccion, telefono, pregunta_seguridad, tipo_plan, estatus) 
                 values(?,? , ?, ?, ?, ?, ?,'1','1');`,
                 [empresa.nombre, empresa.nombre_propietario, empresa.RFC, empresa.foto, empresa.direccion, empresa.telefono, empresa.pregunta_seguridad],
-                function (error: any, results: any, fields: any) {
-                    if (error) {                  
-                            reject(error);
-                        
+                (error: any, results: any, fields: any) => {
+                    if (error) {
+                        reject(error);
                     }
                     //recuperamos el id de esa empresa
                     let empresa_id = results.insertId;
@@ -32,10 +31,9 @@ export class Company extends Database {
                     connection.query(`insert into usuarios(nombre, apellido, contrasenia,direccion, correo, telefono, pregunta_seguridad, rol, estado) 
                     values(?, ?, sha1(?), ?, ?, ?, ?, 'OWN','1');`,
                         [empresa.nombre_propietario, empresa.apellido, empresa.contrasenia, empresa.direccion_duenio, empresa.correo, empresa.telefono_duenio, empresa.pregunta_seguridad],
-                        function (error: any, results: any, fields: any) {
+                        (error: any, results: any, fields: any) => {
                             if (error) {
-                                 
-                                    reject(error);
+                                reject(error);
                             }
                             //realizamos el commit
                             resolve(empresa_id);
