@@ -31,38 +31,35 @@ export class Controller {
     }
     async insertCompany(req: Request, res: Response) {
         try {
-            console.log(req.body);
-            const procedure = {
-                name: "insert_empresa",
-                items: "?,?,?,?,?,?,?,?,?,?,?,?"
-            }
-            const datos = [
-                req.body.nombre,
-                req.body.nombre_propietario,
-                req.body.RFC,
-                req.body.foto,
-                req.body.contrasenia,
-                req.body.direccion_duenio,
-                req.body.direccion,
-                req.body.telefono,
-                req.body.apellido,
-                req.body.telefono_duenio,
-                req.body.pregunta_seguridad,
-                req.body.correo
-            ];
-            const catched = await modelCompany.procedure(procedure, datos);
+            const datos = {
+                nombre: req.body.nombre,
+                nombre_propietario: req.body.nombre_propietario,
+                RFC: req.body.RFC,
+                foto: req.body.foto,
+                contrasenia: req.body.contrasenia,
+                direccion_duenio: req.body.direccion_duenio,
+                direccion: req.body.direccion,
+                telefono: req.body.telefono,
+                apellido: req.body.apellido,
+                telefono_duenio: req.body.telefono_duenio,
+                pregunta_seguridad: req.body.pregunta_seguridad,
+                correo: req.body.correo
+            };
+            const catched = await modelCompany.insertCompany(datos);
             if (!catched) res.status(400);
-            res.status(200).json(catched);
+            res.status(200).json({
+                empresa_id: catched
+            });
         } catch (error) {
             res.status(400);
         }
     }
-    async getCompany(req: Request, res: Response){
-        try{
+    async getCompany(req: Request, res: Response) {
+        try {
             const catched = await modelCompany.getCompany(req.params.id);
-            if(!catched) res.status(400);
+            if (!catched) res.status(400);
             res.status(200).json(catched);
-        }catch(error){
+        } catch (error) {
             res.status(400);
         }
     }
