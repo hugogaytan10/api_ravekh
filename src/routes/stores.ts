@@ -8,7 +8,6 @@ const controller = new Controller();
 routes.post('/tiendas',chechkJWT.checkJWT,controller.getStores);
 routes.post('/tienda/unirse', chechkJWT.checkJWT, controller.joinToStore);
 routes.get('/tienda/:id',chechkJWT.checkJWT,controller.getStoreById);
-routes.get('/tiendas/eliminadas',chechkJWT.checkJWT,controller.getDeletedStores);
 routes.post('/tienda/actualizar/',chechkJWT.checkJWT,controller.updateStore);
 routes.post('/tienda/guardar/',chechkJWT.checkJWT,controller.insertStore);
 routes.put('/tienda/activar/:id',chechkJWT.checkJWT,controller.activateStore);
@@ -17,7 +16,8 @@ routes.put('/tienda/quitar_tienda/:idTienda/:idEmpleado',chechkJWT.checkJWT,cont
 routes.put('/tienda/asignar_tienda/:idTienda/:idEmpleado',chechkJWT.checkJWT,controller.assignStore);
 //las tiendas donde esta el usuario
 routes.get('/tiendas/empleado/:id', chechkJWT.checkJWT, controller.getStoresByEmployee);
-
+//las tiendas eliminas, id de la empresa
+routes.get('/tiendas/eliminadas/:id',chechkJWT.checkJWT,controller.getDeletedStores);
 
 
 
