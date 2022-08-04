@@ -13,9 +13,9 @@ class Store extends Database{
             })
         })
     }
-    deletedStores(){
+    deletedStores(id: string){
         return new Promise((resolve, reject)=>{
-            connection.query(`select * from tiendas where estado = "0";`,
+            connection.query(`select * from tiendas where estado = "0" and empresa_id= ${id};`,
             (error: any, results: any, fields: any) => {
                 if(error) reject(error);
                 resolve(results);

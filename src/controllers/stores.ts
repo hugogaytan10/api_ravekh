@@ -53,7 +53,7 @@ export class Controller{
     }
     async getDeletedStores(req: Request, res: Response){
         try{
-            const catched = await modelStore.deletedStores();
+            const catched = await modelStore.deletedStores(req.params.id);
             res.status(200).json(catched);
         }catch(error){
             res.json(400).json(error);
