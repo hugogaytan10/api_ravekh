@@ -17,7 +17,7 @@ routes.put('/tienda/asignar_tienda/:idTienda/:idEmpleado',chechkJWT.checkJWT,con
 //las tiendas donde esta el usuario
 routes.get('/tiendas/empleado/:id', chechkJWT.checkJWT, controller.getStoresByEmployee);
 //las tiendas eliminas, id de la empresa
-routes.get('/tiendas/eliminadas/:id', chechkJWT.checkJWT, controller.getDeletedStores);
+routes.get('/tiendas/eliminadas', chechkJWT.checkJWT, controller.getDeletedStores);
 
 
 
