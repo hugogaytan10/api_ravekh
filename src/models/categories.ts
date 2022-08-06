@@ -14,9 +14,8 @@ class Category extends Database {
         return new Promise((resolve, reject) => {
             connection.query(`select c.id, c.nombre, c.descripcion, c.nombre, c.tienda_id
             from categorias as c join tiendas as t
-            on t.id = c.tienda_id join empresas as e
-            on t.empresa_id = e.id
-            where e.id = ${id};`, (error: any, results: any, fields: any) => {
+            on t.id = c.tienda_id 
+            where t.id = ${id} and c.estado = '1';`, (error: any, results: any, fields: any) => {
                 if(error)reject(error);
                 resolve(results);
             });
