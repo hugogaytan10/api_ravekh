@@ -37,7 +37,8 @@ export class Controller extends Database {
     //mostrar todo
     async getClothes(req: Request, res: Response) {
         try {
-            const catched = await modelPrenda.findClothes();
+
+            const catched = await modelPrenda.findClothes(req.params.id);
             res.status(200).json(catched);
         } catch (error) {
             res.status(400).json(error);
@@ -97,7 +98,7 @@ export class Controller extends Database {
     //ver eliminadas
     async findDeletedClothes(req: Request, res: Response) {
         try {
-            const catched = await modelPrenda.findDeletedClothes();
+            const catched = await modelPrenda.findDeletedClothes(req.params.id);
             res.status(200).json(catched);
         } catch (error) {
             res.status(400).json(error);
