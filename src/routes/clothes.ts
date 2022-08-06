@@ -7,10 +7,13 @@ const controller = new Controller();
 //id de la tienda para rescatar las prendas de cada tienda
 routes.get('/prendas/:id', checkJWT.checkJWT, controller.getClothes);
 routes.get('/prenda/:id', checkJWT.checkJWT, controller.getClothe);
+//id de la prenda
 routes.get('/prenda/codigo/:id', checkJWT.checkJWT, controller.getClotheById);
 routes.post('/prendas/guardar', checkJWT.checkJWT, controller.saveClothe);
 routes.put('/prenda/actualizar/', checkJWT.checkJWT, controller.updateClothe);
+//id de la prenda
 routes.put('/prenda/eliminar/:id', checkJWT.checkJWT, controller.deleteClothe);
+//id de la tienda
 routes.get('/prendasEliminadas/:id', checkJWT.checkJWT, controller.findDeletedClothes);
 
 export default routes;
