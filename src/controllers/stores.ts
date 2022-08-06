@@ -53,8 +53,8 @@ export class Controller{
     }
     async getDeletedStores(req: Request, res: Response){
         try{
-            const empresa_id = req.body.empresa_id;
-            const catched = await modelStore.deletedStores(empresa_id);
+            const catched = await modelStore.deletedStores(req.params.id);
+            if(!catched)res.status(400);
             res.status(200).json(catched);
         }catch(error){
             res.json(400).json(error);
