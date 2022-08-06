@@ -80,7 +80,9 @@ class Controller {
     getDeletedStores(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const catched = yield modelStore.deletedStores();
+                const catched = yield modelStore.deletedStores(req.params.id);
+                if (!catched)
+                    res.status(400);
                 res.status(200).json(catched);
             }
             catch (error) {

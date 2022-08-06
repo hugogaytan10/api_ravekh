@@ -35,8 +35,7 @@ class Company extends database_1.default {
                     if (error) {
                         reject(error);
                     }
-                    //realizamos el commit\clg
-                    console.log(empresa_id);
+                    //realizamos el commit
                     resolve(empresa_id);
                 });
             });

@@ -18,9 +18,9 @@ class Store extends database_1.default {
             });
         });
     }
-    deletedStores() {
+    deletedStores(empresa_id) {
         return new Promise((resolve, reject) => {
-            mysql_1.default.query(`select * from tiendas where estado = "0";`, (error, results, fields) => {
+            mysql_1.default.query(`select * from tiendas where estado = "1" and empresa_id= ${empresa_id};`, (error, results, fields) => {
                 if (error)
                     reject(error);
                 resolve(results);
