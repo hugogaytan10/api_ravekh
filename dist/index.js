@@ -17,8 +17,8 @@ const port = process.env.PORT || 8090;
 const express = require('express');
 const cors = require('cors');
 const app = express();
+app.use(cors());
 const init = () => __awaiter(void 0, void 0, void 0, function* () {
-    app.use(cors());
     app.use(express.json());
     app.use(express.urlencoded({ extended: false }));
     (0, routes_1.default)(app);
