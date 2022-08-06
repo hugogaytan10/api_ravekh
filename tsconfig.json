@@ -100,7 +100,7 @@
     // "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
     "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
   },
-  "include":["src", "src/routes/index.ts"],
+  "include":["src", "src/routes/index.ts", "index.ts"],
   "exclude": ["node_modules"],
   "files": ["types.d.ts"]
 }

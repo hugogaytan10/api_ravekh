@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -8,14 +7,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Controller = void 0;
-const users_1 = __importDefault(require("../models/users"));
-const modelUser = new users_1.default();
-class Controller {
+import User from '../models/users';
+const modelUser = new User();
+export class Controller {
     //INSERTAR USUARIO
     saveUser(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -98,5 +92,3 @@ class Controller {
         });
     }
 }
-exports.Controller = Controller;
-//# sourceMappingURL=users.js.map

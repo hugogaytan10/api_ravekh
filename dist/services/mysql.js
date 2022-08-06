@@ -1,5 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 const mysql = require('mysql');
 // Usar esta configuración para manejar un servidor local de MySQL
 const connection = mysql.createPool({
@@ -11,5 +9,4 @@ const connection = mysql.createPool({
     //password : 'root',
     database: 'rebk_db'
 });
-exports.default = connection;
-//# sourceMappingURL=mysql.js.map
+export default connection;

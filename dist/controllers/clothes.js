@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -8,15 +7,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Controller = void 0;
-const database_1 = __importDefault(require("../services/database"));
-const clothes_1 = __importDefault(require("../models/clothes"));
-const modelPrenda = new clothes_1.default();
-class Controller extends database_1.default {
+import Database from '../services/database';
+import Clothe from '../models/clothes';
+const modelPrenda = new Clothe();
+export class Controller extends Database {
     constructor() {
         super({ table: 'prendas' });
     }
@@ -147,5 +141,3 @@ class Controller extends database_1.default {
         });
     }
 }
-exports.Controller = Controller;
-//# sourceMappingURL=clothes.js.map

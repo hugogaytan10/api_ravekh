@@ -1,1 +1,1 @@
-{"version":3,"file":"statistics.js","sourceRoot":"","sources":["../../src/models/statistics.ts"],"names":[],"mappings":";;;;;AAAA,oEAA4C;AAE5C,MAAM,SAAU,SAAQ,kBAAQ;IAC5B;QACI,KAAK,CAAC,EAAC,KAAK,EAAE,cAAc,EAAC,CAAC,CAAC;IACnC,CAAC;CACJ;AACD,kBAAe,SAAS,CAAC"}
+{"version":3,"file":"statistics.js","sourceRoot":"","sources":["../../src/models/statistics.ts"],"names":[],"mappings":"AAAA,OAAO,QAAQ,MAAM,sBAAsB,CAAC;AAE5C,MAAM,SAAU,SAAQ,QAAQ;IAC5B;QACI,KAAK,CAAC,EAAC,KAAK,EAAE,cAAc,EAAC,CAAC,CAAC;IACnC,CAAC;CACJ;AACD,eAAe,SAAS,CAAC"}

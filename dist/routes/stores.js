@@ -1,27 +1,21 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = require("express");
-const stores_1 = require("../controllers/stores");
-const jwt_1 = __importDefault(require("../middlewares/jwt"));
-const routes = (0, express_1.Router)();
-const controller = new stores_1.Controller();
+import { Router } from 'express';
+import { Controller } from '../controllers/stores';
+import chechkJWT from '../middlewares/jwt';
+const routes = Router();
+const controller = new Controller();
 //ejemplo: http://localhost:8090/api/tiendas
 //las tiendas de la empresa
-routes.post('/tiendas/', jwt_1.default.checkJWT, controller.getStores);
-routes.post('/tienda/unirse', jwt_1.default.checkJWT, controller.joinToStore);
-routes.get('/tienda/:id', jwt_1.default.checkJWT, controller.getStoreById);
-routes.post('/tienda/actualizar/', jwt_1.default.checkJWT, controller.updateStore);
-routes.post('/tienda/guardar/', jwt_1.default.checkJWT, controller.insertStore);
-routes.put('/tienda/activar/:id', jwt_1.default.checkJWT, controller.activateStore);
-routes.put('/tienda/eliminar/:id', jwt_1.default.checkJWT, controller.deleteStore);
-routes.put('/tienda/quitar_tienda/:idTienda/:idEmpleado', jwt_1.default.checkJWT, controller.removeStore);
-routes.put('/tienda/asignar_tienda/:idTienda/:idEmpleado', jwt_1.default.checkJWT, controller.assignStore);
+routes.post('/tiendas/', chechkJWT.checkJWT, controller.getStores);
+routes.post('/tienda/unirse', chechkJWT.checkJWT, controller.joinToStore);
+routes.get('/tienda/:id', chechkJWT.checkJWT, controller.getStoreById);
+routes.post('/tienda/actualizar/', chechkJWT.checkJWT, controller.updateStore);
+routes.post('/tienda/guardar/', chechkJWT.checkJWT, controller.insertStore);
+routes.put('/tienda/activar/:id', chechkJWT.checkJWT, controller.activateStore);
+routes.put('/tienda/eliminar/:id', chechkJWT.checkJWT, controller.deleteStore);
+routes.put('/tienda/quitar_tienda/:idTienda/:idEmpleado', chechkJWT.checkJWT, controller.removeStore);
+routes.put('/tienda/asignar_tienda/:idTienda/:idEmpleado', chechkJWT.checkJWT, controller.assignStore);
 //las tiendas donde esta el usuario
-routes.get('/tiendas/empleado/:id', jwt_1.default.checkJWT, controller.getStoresByEmployee);
+routes.get('/tiendas/empleado/:id', chechkJWT.checkJWT, controller.getStoresByEmployee);
 //las tiendas eliminas, id de la empresa
-routes.get('/tiendas/eliminadas/:id', jwt_1.default.checkJWT, controller.getDeletedStores);
-exports.default = routes;
-//# sourceMappingURL=stores.js.map
+routes.get('/tiendas/eliminadas/:id', chechkJWT.checkJWT, controller.getDeletedStores);
+export default routes;

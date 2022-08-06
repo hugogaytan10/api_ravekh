@@ -1,19 +1,14 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const mysql_1 = __importDefault(require("../services/mysql"));
-const database_1 = __importDefault(require("../services/database"));
+import connection from "../services/mysql";
+import Database from "../services/database";
 const jwt = require('jsonwebtoken');
-class User extends database_1.default {
+class User extends Database {
     constructor() {
         super({ table: 'usuarios' });
     }
     //buscar un usuario por correo y contrasenia
     findUser(id) {
         return new Promise((resolve, reject) => {
-            mysql_1.default.query(`select u.id, u.nombre, u.apellido, u.contrasenia, u.direccion, u.correo, u.telefono, u.pregunta_seguridad,
+            connection.query(`select u.id, u.nombre, u.apellido, u.contrasenia, u.direccion, u.correo, u.telefono, u.pregunta_seguridad,
             u.rol, u.estado, e.id as empresa_id
             from usuarios as u join usuarios_has_tiendas as t
             on t.usuario_id = u.id
@@ -42,7 +37,7 @@ class User extends database_1.default {
     findNewUser(user) {
         const hash = this.encrypPassword(user.contrasenia);
         return new Promise((resolve, reject) => {
-            mysql_1.default.query(`SELECT * FROM usuarios where correo = ? and contrasenia = ?`, [user.correo, hash], (error, results, fields) => {
+            connection.query(`SELECT * FROM usuarios where correo = ? and contrasenia = ?`, [user.correo, hash], (error, results, fields) => {
                 if (error)
                     reject(error);
                 if (results !== undefined && results.length !== 0) {
@@ -58,5 +53,4 @@ class User extends database_1.default {
         });
     }
 }
-exports.default = User;
-//# sourceMappingURL=users.js.map
+export default User;

@@ -1,17 +1,12 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const database_1 = __importDefault(require("../services/database"));
-const mysql_1 = __importDefault(require("../services/mysql"));
-class Prendas extends database_1.default {
+import Database from "../services/database";
+import connection from "../services/mysql";
+class Prendas extends Database {
     constructor() {
         super({ table: 'prendas' });
     }
     findClothes() {
         return new Promise((resolve, reject) => {
-            mysql_1.default.query(` select p.id, p.nombre, p.descripcion, dp.codigo_barras, 
+            connection.query(` select p.id, p.nombre, p.descripcion, dp.codigo_barras, 
             dp.color, dp.cantidad_stock, dp.talla, dp.precio, dp.foto, dp.descuento, 
             c.nombre as categoria from detalles_de_prenda as dp join prendas as p on p.id = dp.prenda_id 
             join categorias as c on c.id = p.categoria_id 
@@ -24,7 +19,7 @@ class Prendas extends database_1.default {
     }
     findDeletedClothes() {
         return new Promise((resolve, reject) => {
-            mysql_1.default.query(`select p.id, p.nombre, p.descripcion, dp.codigo_barras,
+            connection.query(`select p.id, p.nombre, p.descripcion, dp.codigo_barras,
                 dp.color, dp.cantidad_stock, dp.talla, dp.precio, dp.foto,
                 dp.descuento, c.nombre as categoria from detalles_de_prenda as dp join prendas as p
                 on p.id = dp.id join categorias as c on c.id = p.categoria_id where p.estado = '0';`, (error, results, fields) => {
@@ -36,7 +31,7 @@ class Prendas extends database_1.default {
     }
     findClothe(id) {
         return new Promise((resolve, reject) => {
-            mysql_1.default.query(`select p.id, p.nombre, p.descripcion, p.categoria_id,
+            connection.query(`select p.id, p.nombre, p.descripcion, p.categoria_id,
             p.estado, dp.codigo_barras,  
             dp.color, dp.cantidad_stock, dp.talla, dp.precio, dp.foto,
             dp.descuento from detalles_de_prenda as dp join prendas as p
@@ -48,5 +43,4 @@ class Prendas extends database_1.default {
         });
     }
 }
-exports.default = Prendas;
-//# sourceMappingURL=clothes.js.map
+export default Prendas;
