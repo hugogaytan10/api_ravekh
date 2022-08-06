@@ -5,7 +5,7 @@ const routes = Router();
 const controller = new Controller();
 //ejemplo: http://localhost:8090/api/tiendas
 //las tiendas de la empresa
-routes.post('/tiendas',chechkJWT.checkJWT,controller.getStores);
+routes.post('/tiendas/',chechkJWT.checkJWT,controller.getStores);
 routes.post('/tienda/unirse', chechkJWT.checkJWT, controller.joinToStore);
 routes.get('/tienda/:id',chechkJWT.checkJWT,controller.getStoreById);
 routes.post('/tienda/actualizar/',chechkJWT.checkJWT,controller.updateStore);
@@ -17,7 +17,7 @@ routes.put('/tienda/asignar_tienda/:idTienda/:idEmpleado',chechkJWT.checkJWT,con
 //las tiendas donde esta el usuario
 routes.get('/tiendas/empleado/:id', chechkJWT.checkJWT, controller.getStoresByEmployee);
 //las tiendas eliminas, id de la empresa
-routes.get('/tiendas/eliminadas', chechkJWT.checkJWT, controller.getDeletedStores);
+routes.post('/tiendas/eliminadas', chechkJWT.checkJWT, controller.getDeletedStores);
 
 
 
