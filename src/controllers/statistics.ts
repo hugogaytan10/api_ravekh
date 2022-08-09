@@ -12,6 +12,7 @@ export class Controller {
                 items: '?'
             }
             const catched = await modelStatistic.procedure(procedure, year);
+            if(!catched) res.status(400);
             res.status(200).json(catched);
         }catch(error){
             res.status(400).json(error);
@@ -26,6 +27,7 @@ export class Controller {
                 items: '?'
             }
             const catched = await modelStatistic.procedure(procedure, year);
+            if(!catched) res.status(400);
             res.status(200).json(catched);
         }catch(error){
             res.status(400).json(error);

@@ -90,6 +90,22 @@ export class Controller extends Database {
                 estado: "0"
             }
             const deleted = await modelPrenda.updateById(id, deleteClothe);
+            if(!deleted) res.status(400);
+            res.status(200).json(deleted);
+        } catch (error) {
+            res.status(400).json(error);
+        }
+    }
+    //restaurar
+    //eliminar
+    async activateClothe(req: Request, res: Response) {
+        const { id } = req.params;
+        try {
+            const deleteClothe = {
+                estado: "1"
+            }
+            const deleted = await modelPrenda.updateById(id, deleteClothe);
+            if(!deleted) res.status(400);
             res.status(200).json(deleted);
         } catch (error) {
             res.status(400).json(error);
@@ -99,6 +115,7 @@ export class Controller extends Database {
     async findDeletedClothes(req: Request, res: Response) {
         try {
             const catched = await modelPrenda.findDeletedClothes(req.params.id);
+            if(!catched) res.status(400);
             res.status(200).json(catched);
         } catch (error) {
             res.status(400).json(error);

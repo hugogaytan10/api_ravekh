@@ -64,6 +64,7 @@ export class Controller{
         try{
             const { id } = req.params;
             const catched = await modelStore.stateStore(id, '1');
+            if(!catched) res.status(400);
             res.status(200).json(catched);
         }catch(error){
             res.status(400).json(error);
@@ -73,6 +74,7 @@ export class Controller{
         try{
             const { id } = req.params;
             const catched = await modelStore.stateStore(id, '0');
+            if(!catched) res.status(400);
             res.status(200).json(catched);
         }catch(error){
             res.status(400).json(error);
@@ -86,6 +88,7 @@ export class Controller{
             }
             const data = [req.body.codigo, req.body.id_usuario];
             const catched = await modelStore.procedure(procedure, data);
+            if(!catched) res.status(400);
             res.status(200).json(catched);
         }catch(error){
             res.status(400).json([]);

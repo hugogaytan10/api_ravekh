@@ -12,6 +12,7 @@ export class Controller{
                 detalle_de_venta: req.body.detalle_de_venta
             }
             const catched = await modelSale.insertSale(clothe);
+            
             res.status(200).json(catched);
         }catch(error){
             res.status(400).json(error);

@@ -6,6 +6,7 @@ export class Controller {
     async getCategories(req: Request, res: Response){
         try{
             const catched = await modelCategory.findCategories(req.body.id);
+            if(!catched) res.status(400);
             res.status(200).json(catched);
         }catch(error){
             res.status(400).json(error);
@@ -15,6 +16,7 @@ export class Controller {
         try{
             const { id } = req.params;
             const catched = await modelCategory.findOne(id);
+            if(!catched) res.status(400);
             res.status(200).json(catched);
         }catch(error){
             res.status(400).json(error);
@@ -28,6 +30,7 @@ export class Controller {
             }
             const category = [req.body.nombre, req.body.descripcion, req.body.tienda_id];
             const catched = await modelCategory.procedure(procedure, category);
+            if(!catched) res.status(400);
             res.status(200).json(catched);
         }catch(error){
             res.status(400).json(error);
@@ -40,6 +43,7 @@ export class Controller {
                 estado: '0'
             }
             const catched = await modelCategory.updateById(id, deleteCategory);
+            if(!catched) res.status(400);
             res.status(200).json(catched);
         }catch(error){
             res.status(400).json(error);
@@ -53,6 +57,7 @@ export class Controller {
                 descripcion: req.body.descripcion
             }
             const catched = await modelCategory.updateById(id, update);
+            if(!catched) res.status(400);
             res.status(200).json(catched);
         }catch(error){
             res.status(400).json(error);
