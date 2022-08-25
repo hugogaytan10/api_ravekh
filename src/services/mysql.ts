@@ -1,14 +1,21 @@
 const mysql = require('mysql');
-// Usar esta configuración para manejar un servidor local de MySQL
-const connection = mysql.createPool({
-    host : 'ravekh.cu7tugak0azk.us-east-2.rds.amazonaws.com',
+const mysqlConfig = {
+    connectionLimit: 5,
+    host: 'ravekh.cu7tugak0azk.us-east-2.rds.amazonaws.com',
     //host : 'localhost',
-    user     : 'admin',
+    user: 'admin',
     //user     : 'root',
-    password : 'ravekh123',
+    password: 'ravekh123',
     //password : 'root',
-    database : 'rebk_db'
-})
+    database: 'rebk_db'
+}
+let pool = mysql.createPool(mysqlConfig);
 
+const connection = function (cb: any) {
+    pool.getConnection(function (err: any, connect: any) {
+        if (err) return cb(err);
+        cb(null, connect);
+    })
+}
 export default connection;
 

@@ -25,18 +25,21 @@ class User extends Database {
     //buscar un usuario por correo y contrasenia
     findUser(id: string) {
         return new Promise<IUser>((resolve, reject) => {
-            connection.query(`select u.id, u.nombre, u.apellido, u.contrasenia, u.direccion, u.correo, u.telefono, u.pregunta_seguridad,
-            u.rol, u.estado, e.id as empresa_id
-            from usuarios as u join usuarios_has_tiendas as t
-            on t.usuario_id = u.id
-            join tiendas as ti on ti.id = t.tienda_id
-            join empresas as e
-            on e.id = ti.empresa_id
-            where u.id = ${id}`,
-                (error: any, results: any, fields: any) => {
-                    if (error) reject(error);
-                    resolve(results);
-                });
+            connection((err: any, con: any) => {
+                if (err) reject(err);
+                con.query(`select u.id, u.nombre, u.apellido, u.contrasenia, u.direccion, u.correo, u.telefono, u.pregunta_seguridad,
+                u.rol, u.estado, e.id as empresa_id
+                from usuarios as u join usuarios_has_tiendas as t
+                on t.usuario_id = u.id
+                join tiendas as ti on ti.id = t.tienda_id
+                join empresas as e
+                on e.id = ti.empresa_id
+                where u.id = ${id}`, async(err: any, user: any) => {
+                    if (con) {con.release();}
+                    if(err) {reject(err);}
+                    resolve(user);
+                })
+            })
         });
     }
     //firmar un token 
@@ -52,24 +55,28 @@ class User extends Database {
         return hash;
     }
 
-    findNewUser(user: any){
+    findNewUser(user: any) {
         const hash: string = this.encrypPassword(user.contrasenia);
-        return new Promise<IUser>((resolve, reject)=>{
-            connection.query(`SELECT * FROM usuarios where correo = ? and contrasenia = ?`,
-            [user.correo, hash], (error: any, results: any, fields: any)=>{
-                if(error) reject(error);
-                if (results !== undefined && results.length !== 0) {
-                    const accessToken = this.generateAccessToken(results[0].id);
-                    const userFind = {
-                        usuario: results[0],
-                        token: accessToken
-                    }
-                    resolve(userFind);
-                }
-                reject(error);
-            });
+        return new Promise<IUser>((resolve, reject) => {
+            connection((error: any, con: any) => {
+                if (error) reject(error);
+                con.query(`SELECT * FROM usuarios where correo = ? and contrasenia = ?`,
+                    [user.correo, hash], async(err: any, newUser: any) => {
+                        if (newUser !== undefined && newUser.length !== 0) {
+                            const accessToken = await this.generateAccessToken(newUser[0].id);
+                            const userFind = {
+                                usuario: newUser[0],
+                                token: accessToken
+                            }
+                            if (con) {con.release();}
+                            resolve(userFind);
+                        }
+                    })
+            })
         });
     }
 }
 
 export default User;
+
+

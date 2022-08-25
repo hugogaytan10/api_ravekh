@@ -1,5 +1,6 @@
 import { NextFunction, Response, Request } from "express";
 const jwt = require('jsonwebtoken');
+//info de payload
 interface IPayload{
     id: string;
     iat: number;
