@@ -1,7 +1,7 @@
 const mysql = require('mysql');
 const mysqlConfig = {
     connectionLimit: 5,
-    host: 'ravekh.cu7tugak0azk.us-east-2.rds.amazonaws.com',
+    host: 'ravekh.cd6upsy0rosm.us-east-1.rds.amazonaws.com',
     //host : 'localhost',
     user: 'admin',
     //user     : 'root',

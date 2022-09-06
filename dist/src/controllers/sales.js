@@ -26,7 +26,6 @@ class Controller {
                     usuario_id: req.body.usuario_id,
                     detalle_de_venta: req.body.detalle_de_venta
                 };
-                console.log(clothe);
                 const catched = yield modelSale.insertSale(clothe);
                 if (!catched)
                     res.status(400);
