@@ -1,8 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const mysql = require('mysql');
-const mysqlConfig = {
-    connectionLimit: 5,
+const mysqlConfig = mysql.createConnection({
     host: 'ravekh.cd6upsy0rosm.us-east-1.rds.amazonaws.com',
     //host : 'localhost',
     user: 'admin',
@@ -10,14 +9,6 @@ const mysqlConfig = {
     password: 'ravekh123',
     //password : 'root',
     database: 'rebk_db'
-};
-let pool = mysql.createPool(mysqlConfig);
-const connection = function (cb) {
-    pool.getConnection(function (err, connect) {
-        if (err)
-            return cb(err);
-        cb(null, connect);
-    });
-};
-exports.default = connection;
+});
+exports.default = mysqlConfig;
 //# sourceMappingURL=mysql.js.map

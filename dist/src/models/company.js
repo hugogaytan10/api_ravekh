@@ -21,39 +21,29 @@ class Company extends database_1.default {
     }
     getCompany(id) {
         return new Promise((resolve, reject) => {
-            (0, mysql_1.default)((err, con) => {
-                con.query(`SELECT * FROM empresas where id = '${id}'`, (error, results) => __awaiter(this, void 0, void 0, function* () {
-                    if (con) {
-                        con.release();
-                    }
-                    if (error)
-                        reject(error);
-                    resolve(results[0]);
-                }));
-            });
+            mysql_1.default.query(`SELECT * FROM empresas where id = '${id}'`, (error, results) => __awaiter(this, void 0, void 0, function* () {
+                if (error)
+                    reject(error);
+                resolve(results[0]);
+            }));
         });
     }
     insertCompany(empresa) {
         return new Promise((resolve, reject) => {
             //insertamos la empresa
-            (0, mysql_1.default)((err, con) => {
-                con.query(`insert into empresas(nombre,nombre_propietario, RFC, foto, direccion, telefono, pregunta_seguridad, tipo_plan, estatus) 
+            mysql_1.default.query(`insert into empresas(nombre,nombre_propietario, RFC, foto, direccion, telefono, pregunta_seguridad, tipo_plan, estatus) 
                 values(?,? , ?, ?, ?, ?, ?,'1','1');`, [empresa.nombre, empresa.nombre_propietario, empresa.RFC, empresa.foto, empresa.direccion, empresa.telefono, empresa.pregunta_seguridad], (error, results) => __awaiter(this, void 0, void 0, function* () {
-                    if (error)
-                        reject(error);
-                    let empresa_id = results.insertId;
-                    con.query(`insert into usuarios(nombre, apellido, contrasenia,direccion, correo, telefono, pregunta_seguridad, rol, estado) 
+                if (error)
+                    reject(error);
+                let empresa_id = results.insertId;
+                mysql_1.default.query(`insert into usuarios(nombre, apellido, contrasenia,direccion, correo, telefono, pregunta_seguridad, rol, estado) 
                     values(?, ?, sha1(?), ?, ?, ?, ?, 'OWN','1');`, [empresa.nombre_propietario, empresa.apellido, empresa.contrasenia, empresa.direccion_duenio, empresa.correo, empresa.telefono_duenio, empresa.pregunta_seguridad], (error, results) => __awaiter(this, void 0, void 0, function* () {
-                        if (con) {
-                            con.release();
-                        }
-                        if (error) {
-                            reject(error);
-                        }
-                        resolve(empresa_id);
-                    }));
+                    if (error) {
+                        reject(error);
+                    }
+                    resolve(empresa_id);
                 }));
-            });
+            }));
         });
     }
 }

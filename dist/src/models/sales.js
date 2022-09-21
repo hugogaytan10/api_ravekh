@@ -21,29 +21,25 @@ class Sales extends database_1.default {
     insertSale(sale) {
         return __awaiter(this, void 0, void 0, function* () {
             return new Promise((resolve, reject) => {
-                (0, mysql_1.default)((error, con) => {
-                    con.query(`INSERT INTO ventas (total, empresa_id, tienda_id) VALUES
+                mysql_1.default.query(`INSERT INTO ventas (total, empresa_id, tienda_id) VALUES
                 (?, ?, ?)`, [sale.total, sale.empresa_id, sale.tienda_id], (err, results) => __awaiter(this, void 0, void 0, function* () {
-                        if (err)
-                            reject(err);
-                        const ventaId = results.insertId;
-                        for (const element of sale.detalle_de_venta) {
-                            con.query(`INSERT INTO detalles_de_venta (precio_unitario, cantidad_prenda, prenda_id, venta_id, usuario_id) 
+                    if (err)
+                        reject(err);
+                    const ventaId = results.insertId;
+                    for (const element of sale.detalle_de_venta) {
+                        mysql_1.default.query(`INSERT INTO detalles_de_venta (precio_unitario, cantidad_prenda, prenda_id, venta_id, usuario_id) 
                         VALUES(?, ?, ?, ?, ?)`, [element.prenda.precio, element.cantidad,
-                                element.prenda.id, ventaId, sale.usuario_id], (err, results) => __awaiter(this, void 0, void 0, function* () {
+                            element.prenda.id, ventaId, sale.usuario_id], (err, results) => __awaiter(this, void 0, void 0, function* () {
+                            if (err)
+                                reject(err);
+                            mysql_1.default.query(`update detalles_de_prenda set cantidad_stock = cantidad_stock - ${element.cantidad} where prenda_id = ${element.prenda.id}`, (err, results) => __awaiter(this, void 0, void 0, function* () {
                                 if (err)
                                     reject(err);
-                                con.query(`update detalles_de_prenda set cantidad_stock = cantidad_stock - ${element.cantidad} where prenda_id = ${element.prenda.id}`, (err, results) => __awaiter(this, void 0, void 0, function* () {
-                                    if (err)
-                                        reject(err);
-                                }));
                             }));
-                        }
-                        if (con)
-                            con.release();
-                        resolve(ventaId);
-                    }));
-                });
+                        }));
+                    }
+                    resolve(ventaId);
+                }));
             });
         });
     }

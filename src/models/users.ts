@@ -25,9 +25,7 @@ class User extends Database {
     //buscar un usuario por correo y contrasenia
     findUser(id: string) {
         return new Promise<IUser>((resolve, reject) => {
-            connection((err: any, con: any) => {
-                if (err) reject(err);
-                con.query(`select u.id, u.nombre, u.apellido, u.contrasenia, u.direccion, u.correo, u.telefono, u.pregunta_seguridad,
+                connection.query(`select u.id, u.nombre, u.apellido, u.contrasenia, u.direccion, u.correo, u.telefono, u.pregunta_seguridad,
                 u.rol, u.estado, e.id as empresa_id
                 from usuarios as u join usuarios_has_tiendas as t
                 on t.usuario_id = u.id
@@ -35,10 +33,8 @@ class User extends Database {
                 join empresas as e
                 on e.id = ti.empresa_id
                 where u.id = ${id}`, async(err: any, user: any) => {
-                    if (con) {con.release();}
                     if(err) {reject(err);}
                     resolve(user);
-                })
             })
         });
     }
@@ -58,20 +54,17 @@ class User extends Database {
     findNewUser(user: any) {
         const hash: string = this.encrypPassword(user.contrasenia);
         return new Promise<IUser>((resolve, reject) => {
-            connection((error: any, con: any) => {
-                if (error) reject(error);
-                con.query(`SELECT * FROM usuarios where correo = ? and contrasenia = ?`,
+                connection.query(`SELECT * FROM usuarios where correo = ? and contrasenia = ?`,
                     [user.correo, hash], async(err: any, newUser: any) => {
+                        if(err) reject(err);
                         if (newUser !== undefined && newUser.length !== 0) {
                             const accessToken = await this.generateAccessToken(newUser[0].id);
                             const userFind = {
                                 usuario: newUser[0],
                                 token: accessToken
                             }
-                            if (con) {con.release();}
                             resolve(userFind);
                         }
-                    })
             })
         });
     }

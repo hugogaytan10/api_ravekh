@@ -8,8 +8,7 @@ class Prendas extends Database {
     }
     findClothes(id: string) {
         return new Promise((resolve, reject) => {
-            connection((error: any, con: any) => {
-                con.query(`select p.id, p.nombre, p.descripcion, dp.codigo_barras, 
+                connection.query(`select p.id, p.nombre, p.descripcion, dp.codigo_barras, 
                 dp.color, dp.cantidad_stock, dp.talla, dp.precio, dp.foto, dp.descuento, 
                 c.nombre as categoria 
                 from detalles_de_prenda as dp 
@@ -19,17 +18,14 @@ class Prendas extends Database {
                 join empresas as e on e.id = t.empresa_id
                 where p.estado = '1' and t.id = ${id};`,
                 async(err: any, results: any) => {
-                    if(con) {con.release();}
-                    if(error) {reject(error);}
+                    if(err) {reject(err);}
                     resolve(results);
-                });
             });
         });
     }
     findDeletedClothes(id: string) {
         return new Promise((resolve, reject) => {
-            connection((error: any, con: any) => {
-                con.query(`select p.id, p.nombre, p.descripcion, dp.codigo_barras, 
+                connection.query(`select p.id, p.nombre, p.descripcion, dp.codigo_barras, 
                 dp.color, dp.cantidad_stock, dp.talla, dp.precio, dp.foto, dp.descuento, 
                 c.nombre as categoria 
                 from detalles_de_prenda as dp 
@@ -39,26 +35,21 @@ class Prendas extends Database {
                 join empresas as e on e.id = t.empresa_id
                 where p.estado = '0' and t.id = ${id};`,
                 async(err: any, results: any) => {
-                    if(con) {con.release();}
                     if(err) {reject(err);}
                     resolve(results);
                 });
-            });
         });
     }
     findClothe(id: string) {
         return new Promise((resolve, reject) => {
-            connection((error: any, con: any) => {
-                con.query(`select p.id, p.nombre, p.descripcion, p.categoria_id,
+                connection.query(`select p.id, p.nombre, p.descripcion, p.categoria_id,
                 p.estado, dp.codigo_barras,  
                 dp.color, dp.cantidad_stock, dp.talla, dp.precio, dp.foto,
                 dp.descuento from detalles_de_prenda as dp join prendas as p
                 on p.id = dp.prenda_id  where p.id = ${id}`,
                 async(err: any, results: any) => {
-                    if(con) {con.release();}
                     if(err) {reject(err);}
                     resolve(results[0]);
-                });
             });
         });
     }

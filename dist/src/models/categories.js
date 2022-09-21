@@ -20,18 +20,14 @@ class Category extends database_1.default {
     }
     findCategories(id) {
         return new Promise((resolve, reject) => {
-            (0, mysql_1.default)((error, con) => {
-                con.query(`select c.id, c.nombre, c.descripcion, c.nombre, c.tienda_id
+            mysql_1.default.query(`select c.id, c.nombre, c.descripcion, c.nombre, c.tienda_id
                 from categorias as c join tiendas as t
                 on t.id = c.tienda_id 
                 where t.id = ${id} and c.estado = '1';`, (err, results) => __awaiter(this, void 0, void 0, function* () {
-                    if (con)
-                        con.release();
-                    if (err)
-                        reject(err);
-                    resolve(results);
-                }));
-            });
+                if (err)
+                    reject(err);
+                resolve(results);
+            }));
         });
     }
 }

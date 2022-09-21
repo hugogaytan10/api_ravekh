@@ -20,46 +20,32 @@ class Database {
     //mostrar todos
     find() {
         return new Promise((resolve, reject) => {
-            (0, mysql_1.default)((error, con) => {
-                con.query(`SELECT * FROM ${this.model.table}`, (err, results) => __awaiter(this, void 0, void 0, function* () {
-                    if (con)
-                        con.release();
-                    if (err)
-                        reject(err);
-                    results(results);
-                }));
-            });
+            mysql_1.default.query(`SELECT * FROM ${this.model.table}`, (err, results) => __awaiter(this, void 0, void 0, function* () {
+                if (err)
+                    reject(err);
+                resolve(results);
+            }));
         });
     }
     //mostrar uno
     findOne(id) {
         return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-            (0, mysql_1.default)((error, con) => {
-                if (error)
-                    reject(error);
-                con.query(`SELECT * FROM ${this.model.table} where id = ${id}`, (err, found) => {
-                    if (con)
-                        con.release();
-                    if (err)
-                        reject(err);
-                    resolve(found[0]);
-                });
+            mysql_1.default.query(`SELECT * FROM ${this.model.table} where id = ${id}`, (err, found) => {
+                if (err)
+                    reject(err);
+                resolve(found[0]);
             });
         }));
     }
     //guardar registro
     save(data) {
         return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-            (0, mysql_1.default)((err, con) => {
-                con.query(`INSERT INTO ${this.model.table} SET ?`, data, (error, result) => __awaiter(this, void 0, void 0, function* () {
-                    if (con)
-                        con.release();
-                    if (error)
-                        reject(error);
-                    const catched = yield this.findOne(result.insertId);
-                    resolve(catched);
-                }));
-            });
+            mysql_1.default.query(`INSERT INTO ${this.model.table} SET ?`, data, (error, result) => __awaiter(this, void 0, void 0, function* () {
+                if (error)
+                    reject(error);
+                const catched = yield this.findOne(result.insertId);
+                resolve(catched);
+            }));
         }));
     }
     //actualizar registro
@@ -67,30 +53,22 @@ class Database {
         return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
             const keys = Object.keys(data).join(' = ?, ') + ' = ?';
             const values = Object.values(data);
-            (0, mysql_1.default)((err, con) => {
-                con.query(`UPDATE ${this.model.table} SET ${keys} WHERE id = ${id}`, values, (error, update) => __awaiter(this, void 0, void 0, function* () {
-                    if (con)
-                        con.release();
-                    if (error)
-                        reject(error);
-                    const catched = yield this.findOne(id);
-                    resolve(catched);
-                }));
-            });
+            mysql_1.default.query(`UPDATE ${this.model.table} SET ${keys} WHERE id = ${id}`, values, (error, update) => __awaiter(this, void 0, void 0, function* () {
+                if (error)
+                    reject(error);
+                const catched = yield this.findOne(id);
+                resolve(catched);
+            }));
         }));
     }
     //procedimientos almacenados
     procedure(procedure, data) {
         return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-            (0, mysql_1.default)((error, con) => {
-                con.query(`CALL ${procedure.name} (${procedure.items})`, data, (err, results) => __awaiter(this, void 0, void 0, function* () {
-                    if (con)
-                        con.release();
-                    if (err)
-                        reject(err);
-                    resolve(results);
-                }));
-            });
+            mysql_1.default.query(`CALL ${procedure.name} (${procedure.items})`, data, (err, results) => __awaiter(this, void 0, void 0, function* () {
+                if (err)
+                    reject(err);
+                resolve(results);
+            }));
         }));
     }
 }

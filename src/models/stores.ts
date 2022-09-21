@@ -7,55 +7,39 @@ class Store extends Database{
     }
     getMyStores(empresa_id: string){
         return new Promise((resolve, reject)=>{
-            connection((error: any, con: any) => {
-                if(error) reject(error);
-                con.query(`select * from tiendas where estado = "1" and empresa_id = ${empresa_id};`,
+                connection.query(`select * from tiendas where estado = "1" and empresa_id = ${empresa_id};`,
                 async (err: any, stores: any) => {
-                    if (con) {con.release();}
                     if(err) reject(err);
                     resolve(stores);
                 })
-            })
         })
     }
     deletedStores(empresa_id: string){
         return new Promise((resolve, reject)=>{
-            connection((err: any, con: any) => {
-                if(err) reject(err);
-                con.query(`select * from tiendas where estado = "0" and empresa_id= ${empresa_id};`,
+                connection.query(`select * from tiendas where estado = "0" and empresa_id= ${empresa_id};`,
                 async(error: any, deleteStore: any) => {
-                    if (con) con.release();
                     if(error) reject(error);
                     resolve(deleteStore);
-                })
             })
         });
     }
     stateStore(id: string, accion: string){
         return new Promise((resolve, reject) => {
-            connection((error: any, con: any) => {
-                if(error) reject(error);
-                con.query(`UPDATE tiendas SET estado = '${accion}' where id = ?`, id, async(err: any, stateStore: any) => {
+                connection.query(`UPDATE tiendas SET estado = '${accion}' where id = ?`, id, async(err: any, stateStore: any) => {
                     const catched = await this.findOne(id);
-                    if (con) con.release();
                     if(err) reject(err);
                     resolve(catched);
-                })
             })
         });
     }
     getStoresByEmployee(id: string){
         return new Promise((resolve, reject) =>{
-            connection((error: any, con: any) => {
-                if(error) reject(error);
-                con.query(`select t.nombre, t.direccion, t.telefono, t.id, t.foto
+                connection.query(`select t.nombre, t.direccion, t.telefono, t.id, t.foto
                 from usuarios as u join usuarios_has_tiendas as ut on u.id = ut.usuario_id
                 join tiendas as t on t.id = ut.tienda_id where u.id = ${id} and t.estado = '1'; `,
                 (err: any, stores: any) => {
-                    if (con) con.release();
                     if(err) reject(err);
                     resolve(stores);
-                })
             }) 
         })
     }

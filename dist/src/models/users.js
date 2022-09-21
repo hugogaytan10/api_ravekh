@@ -22,10 +22,7 @@ class User extends database_1.default {
     //buscar un usuario por correo y contrasenia
     findUser(id) {
         return new Promise((resolve, reject) => {
-            (0, mysql_1.default)((err, con) => {
-                if (err)
-                    reject(err);
-                con.query(`select u.id, u.nombre, u.apellido, u.contrasenia, u.direccion, u.correo, u.telefono, u.pregunta_seguridad,
+            mysql_1.default.query(`select u.id, u.nombre, u.apellido, u.contrasenia, u.direccion, u.correo, u.telefono, u.pregunta_seguridad,
                 u.rol, u.estado, e.id as empresa_id
                 from usuarios as u join usuarios_has_tiendas as t
                 on t.usuario_id = u.id
@@ -33,15 +30,11 @@ class User extends database_1.default {
                 join empresas as e
                 on e.id = ti.empresa_id
                 where u.id = ${id}`, (err, user) => __awaiter(this, void 0, void 0, function* () {
-                    if (con) {
-                        con.release();
-                    }
-                    if (err) {
-                        reject(err);
-                    }
-                    resolve(user);
-                }));
-            });
+                if (err) {
+                    reject(err);
+                }
+                resolve(user);
+            }));
         });
     }
     //firmar un token 
@@ -59,23 +52,18 @@ class User extends database_1.default {
     findNewUser(user) {
         const hash = this.encrypPassword(user.contrasenia);
         return new Promise((resolve, reject) => {
-            (0, mysql_1.default)((error, con) => {
-                if (error)
-                    reject(error);
-                con.query(`SELECT * FROM usuarios where correo = ? and contrasenia = ?`, [user.correo, hash], (err, newUser) => __awaiter(this, void 0, void 0, function* () {
-                    if (newUser !== undefined && newUser.length !== 0) {
-                        const accessToken = yield this.generateAccessToken(newUser[0].id);
-                        const userFind = {
-                            usuario: newUser[0],
-                            token: accessToken
-                        };
-                        if (con) {
-                            con.release();
-                        }
-                        resolve(userFind);
-                    }
-                }));
-            });
+            mysql_1.default.query(`SELECT * FROM usuarios where correo = ? and contrasenia = ?`, [user.correo, hash], (err, newUser) => __awaiter(this, void 0, void 0, function* () {
+                if (err)
+                    reject(err);
+                if (newUser !== undefined && newUser.length !== 0) {
+                    const accessToken = yield this.generateAccessToken(newUser[0].id);
+                    const userFind = {
+                        usuario: newUser[0],
+                        token: accessToken
+                    };
+                    resolve(userFind);
+                }
+            }));
         });
     }
 }

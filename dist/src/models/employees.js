@@ -20,17 +20,13 @@ class Employee extends database_1.default {
     }
     getDeletedEmployees(id) {
         return new Promise((resolve, reject) => {
-            (0, mysql_1.default)((error, con) => {
-                con.query(`select u.nombre, u.apellido, u.telefono, u.rol, u.id
+            mysql_1.default.query(`select u.nombre, u.apellido, u.telefono, u.rol, u.id
                 from usuarios as u join usuarios_has_tiendas as ut on u.id = ut.usuario_id
                 join tiendas as t on t.id = ut.tienda_id where tienda_id = ${id} and u.estado = '0';`, (err, results) => __awaiter(this, void 0, void 0, function* () {
-                    if (con)
-                        con.release();
-                    if (err)
-                        reject(err);
-                    resolve(results);
-                }));
-            });
+                if (err)
+                    reject(err);
+                resolve(results);
+            }));
         });
     }
     getEmployees(id) {
@@ -39,8 +35,6 @@ class Employee extends database_1.default {
                 con.query(`select u.nombre, u.apellido, u.telefono, u.rol, u.id
                 from usuarios as u join usuarios_has_tiendas as ut on u.id = ut.usuario_id
                 join tiendas as t on t.id = ut.tienda_id where tienda_id = ${id} and u.estado = '1';`, (error, results) => __awaiter(this, void 0, void 0, function* () {
-                    if (con)
-                        con.release();
                     if (error)
                         reject(error);
                     resolve(results);
@@ -50,15 +44,11 @@ class Employee extends database_1.default {
     }
     stateEmployee(id, accion) {
         return new Promise((resolve, reject) => {
-            (0, mysql_1.default)((err, con) => {
-                con.query(`UPDATE usuarios set estado = '${accion}' where id = ${id}`, (error, results) => __awaiter(this, void 0, void 0, function* () {
-                    if (con)
-                        con.release();
-                    if (error)
-                        reject(error);
-                    resolve(results);
-                }));
-            });
+            mysql_1.default.query(`UPDATE usuarios set estado = '${accion}' where id = ${id}`, (error, results) => __awaiter(this, void 0, void 0, function* () {
+                if (error)
+                    reject(error);
+                resolve(results);
+            }));
         });
     }
 }
