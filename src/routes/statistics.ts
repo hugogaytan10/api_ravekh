@@ -4,8 +4,9 @@ import chechkJWT from '../middlewares/jwt';
 const routes = Router();
 const controller = new Controller();
 //ejemplo: http://localhost:8090/api/graficaVentas
-routes.get('/graficaVentas',chechkJWT.checkJWT,controller.getSalesByYear);
-routes.get('/graficaPrendas',chechkJWT.checkJWT,controller.getClothesByYear);
+routes.post('/graficaVentas',chechkJWT.checkJWT,controller.getSalesByYear);
+routes.post('/graficaPrendas',chechkJWT.checkJWT,controller.getClothesByYear);
+routes.post('/graficaMasVendidos',chechkJWT.checkJWT,controller.getBestSallingClothes);
 
 
 
