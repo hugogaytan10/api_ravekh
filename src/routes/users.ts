@@ -8,6 +8,7 @@ routes.post('/usuario/guardar', controller.saveUser);
 routes.post('/usuario/verificar',controller.signin);
 routes.post('/usuario/perfil', chechkJWT.checkJWT, controller.profile);
 routes.put('/usuario/actualizar', chechkJWT.checkJWT, controller.updateUser);
+routes.post('/usuario/compania', chechkJWT.checkJWT, controller.finCompany);
 
 
 export default routes;
