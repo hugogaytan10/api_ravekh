@@ -34,7 +34,7 @@ export class Controller {
             const catched = await modelUser.findNewUser(user);
             //sino existe lanzamos un mensaje
             if (!catched) { res.status(400) }
-            catched.usuario.contrasenia = "0";
+            //catched.usuario.contrasenia = "0";
             //encabezado de token al recuperar el usuario
             res.header('token', catched.token).json({
                 usuario: catched.usuario,
@@ -70,6 +70,20 @@ export class Controller {
             const update = await modelUser.updateById(id, updateUser);
             res.status(200).json(update);
         } catch (error) {
+            res.status(400).json(error);
+        }
+    }
+    async finCompany(req: Request, res: Response){
+        try{
+            const user = {
+                correo: req.body.correo,
+                contrasenia: req.body.contrasenia
+            };
+            const company = await modelUser.findCompany(user);
+            if(!company) return res.status(404).json("Sin compania");
+            res.status(200).json(company);
+            
+        }catch(error){
             res.status(400).json(error);
         }
     }
