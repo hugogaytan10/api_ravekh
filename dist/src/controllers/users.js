@@ -49,7 +49,7 @@ class Controller {
                 if (!catched) {
                     res.status(400);
                 }
-                catched.usuario.contrasenia = "0";
+                //catched.usuario.contrasenia = "0";
                 //encabezado de token al recuperar el usuario
                 res.header('token', catched.token).json({
                     usuario: catched.usuario,
@@ -91,6 +91,23 @@ class Controller {
                 };
                 const update = yield modelUser.updateById(id, updateUser);
                 res.status(200).json(update);
+            }
+            catch (error) {
+                res.status(400).json(error);
+            }
+        });
+    }
+    finCompany(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const user = {
+                    correo: req.body.correo,
+                    contrasenia: req.body.contrasenia
+                };
+                const company = yield modelUser.findCompany(user);
+                if (!company)
+                    return res.status(404).json("Sin compania");
+                res.status(200).json(company);
             }
             catch (error) {
                 res.status(400).json(error);

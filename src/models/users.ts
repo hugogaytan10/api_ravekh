@@ -75,8 +75,7 @@ class User extends Database {
             from empresas as e
             join tiendas as t  on t.empresa_id = e.id
             join usuarios_has_tiendas as ut on t.id = ut.tienda_id
-            join usuarios as u on ut.usuario_id = u.id
-            where u.correo = ? and u.contrasenia = ?;`,
+            join usuarios as u on ut.usuario_id = u.id;`,
             [user.correo, user.contrasenia], async(err: any, companyID: any) => {
                 if(err) reject(err);
                 resolve(companyID);

@@ -13,5 +13,6 @@ routes.post('/usuario/guardar', controller.saveUser);
 routes.post('/usuario/verificar', controller.signin);
 routes.post('/usuario/perfil', jwt_1.default.checkJWT, controller.profile);
 routes.put('/usuario/actualizar', jwt_1.default.checkJWT, controller.updateUser);
+routes.post('/usuario/compania', jwt_1.default.checkJWT, controller.finCompany);
 exports.default = routes;
 //# sourceMappingURL=users.js.map

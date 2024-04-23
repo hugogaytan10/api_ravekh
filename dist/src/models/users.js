@@ -66,6 +66,20 @@ class User extends database_1.default {
             }));
         });
     }
+    findCompany(user) {
+        return new Promise((resolve, reject) => {
+            mysql_1.default.query(` SELECT e.id
+            from empresas as e
+            join tiendas as t  on t.empresa_id = e.id
+            join usuarios_has_tiendas as ut on t.id = ut.tienda_id
+            join usuarios as u on ut.usuario_id = u.id
+            where u.correo = ? and u.contrasenia = ?;`, [user.correo, user.contrasenia], (err, companyID) => __awaiter(this, void 0, void 0, function* () {
+                if (err)
+                    reject(err);
+                resolve(companyID);
+            }));
+        });
+    }
 }
 exports.default = User;
 //# sourceMappingURL=users.js.map

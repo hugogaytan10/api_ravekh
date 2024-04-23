@@ -23,9 +23,10 @@ class Controller {
                 let year = date.getFullYear();
                 const procedure = {
                     name: 'VentasPorAnio',
-                    items: '?'
+                    items: '?,?'
                 };
-                const catched = yield modelStatistic.procedure(procedure, year);
+                const data = [year, req.body.store_id];
+                const catched = yield modelStatistic.procedure(procedure, data);
                 if (!catched)
                     res.status(400);
                 res.status(200).json(catched);
@@ -42,9 +43,30 @@ class Controller {
                 let year = date.getFullYear();
                 const procedure = {
                     name: 'cantidadDePrendasPorAnio',
-                    items: '?'
+                    items: '?,?'
                 };
-                const catched = yield modelStatistic.procedure(procedure, year);
+                const data = [year, req.body.store_id];
+                const catched = yield modelStatistic.procedure(procedure, data);
+                if (!catched)
+                    res.status(400);
+                res.status(200).json(catched);
+            }
+            catch (error) {
+                res.status(400).json(error);
+            }
+        });
+    }
+    getBestSallingClothes(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                let date = new Date();
+                let year = date.getFullYear();
+                const procedure = {
+                    name: 'prendas_mas_vendidas',
+                    items: '?,?'
+                };
+                const data = [year, req.body.store_id];
+                const catched = yield modelStatistic.procedure(procedure, data);
                 if (!catched)
                     res.status(400);
                 res.status(200).json(catched);

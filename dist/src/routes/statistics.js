@@ -9,7 +9,8 @@ const jwt_1 = __importDefault(require("../middlewares/jwt"));
 const routes = (0, express_1.Router)();
 const controller = new statistics_1.Controller();
 //ejemplo: http://localhost:8090/api/graficaVentas
-routes.get('/graficaVentas', jwt_1.default.checkJWT, controller.getSalesByYear);
-routes.get('/graficaPrendas', jwt_1.default.checkJWT, controller.getClothesByYear);
+routes.post('/graficaVentas', jwt_1.default.checkJWT, controller.getSalesByYear);
+routes.post('/graficaPrendas', jwt_1.default.checkJWT, controller.getClothesByYear);
+routes.post('/graficaMasVendidos', jwt_1.default.checkJWT, controller.getBestSallingClothes);
 exports.default = routes;
 //# sourceMappingURL=statistics.js.map
